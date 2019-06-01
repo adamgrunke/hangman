@@ -1,44 +1,19 @@
 //Variable Declarations
 var wordSolution ='test';   // empty string at begining. Using "test" during writing.
-var wordArr = [];
 var letterGuess;
-var guesses = [];  
-var wrongGuesses = []
+var wrongArr = [];
+var corArr = [];
 var btnRst;
-var displayGuesses;
+var dispCorGuess;
+var dispBadGuess;
 // HTML Element References
 btnRst = document.getElementById("reset");
 btnGuess = document.getElementById("enter");
-letterGuess = document.querySelector('[name="input"]')
-displayGuesses = document.getElementById("guesses")
-// Create all event listeners
-// btnRst.addEventListener("click", function(){
-//     if (btnRst.classList = "reset") {
-//         btnRst.classList.remove('reset');
-//         btnRst.classList.add("startgame");
-//         console.log(btnRst.textContent)
-//         btnRst.textContent = "Start Game!";
-//         console.log(btnRst.textContent)
-//     }
-//     else {
-//         btnRst.classList.remove("startgame");
-//         btnRst.classList.add('reset');
-//         btnRst.textContent = "Restart Game?"
-//     }
-// })
+letterGuess = document.querySelector('[name="input"]');
+dispCorGuess = document.getElementById('correct');
+dispBadGuess = document.getElementById('wrong');
 
 //Any additional functions
-var startGame = function(){
-    reset();
-    getWord();
-
-}
-var getWord = function(){
-    // Initial version will use this hard coded word 
-    // Use split to create an array of the wordSolution string
-    wordArr = wordSolution.split('');
-    console.log(wordArr + wordArr.length);
-}
 
 var checkSingleLetter = function(length){
     if (length > 1){
@@ -52,33 +27,30 @@ var checkSingleLetter = function(length){
 
 btnGuess.addEventListener("click", function(){
     if (checkSingleLetter(letterGuess.value.length)){
-        guessCompare(letterGuess.value);
-        guesses.push(letterGuess.value)
-        displayGuesses.textContent = guesses.join(', ');
+        guessCompare(letterGuess.value.toUpperCase());
     };
     letterGuess.value = '';
 })
 
 var guessCompare = function(letter){
-    if (wordSolution.toUpperCase().includes(letter.toUpperCase())){
+    if (wordSolution.includes(letter)){
         console.log("good guess!");
+        corArr.push(letter);
+        console.log(corArr);
+        dispCorGuess.textContent = "Correct: " + corArr.join(', ');
+        
     }
     else {
-        console.log(letter.toUpperCase() + " is not in the word")
+        console.log(letter + " is not in the word");
+        wrongArr.push(letter);
+        console.log(wrongArr);
+        dispBadGuess.textContent = "Wrong: " + wrongArr.join(', ');
     }
 
 
 }
 
-var reset = function(){
-    // initialize all counts
-    // randomize selection for word selection array
-    // get new word
-    // clear text boxes
-
-}
-
-//wordSolution = getWord();
+wordSolution = wordSolution.toUpperCase();
 //console.log(wordSolution);
 
 
