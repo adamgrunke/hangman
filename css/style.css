@@ -1,0 +1,28 @@
+body {
+    background-color: pink;
+}
+
+header, main, footer {
+    width: 70%;
+    border: 1px dashed #232323;
+    margin: auto;
+}
+header {
+
+}
+
+main {
+
+}
+
+footer {
+
+}
+
+.reset {
+    background-color: orange;
+}
+
+.startgame {
+    background-color: green;
+}
