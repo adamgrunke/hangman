@@ -1,5 +1,16 @@
 //Variable Declarations
-var wordSolution ='test';   // empty string at begining. Using "test" during writing.
+var wordList = [
+    'apple', 
+    'orange', 
+    'bananas', 
+    'apple', 
+    'orange', 
+    'bananas', 
+    'test',
+    'strawberries',
+    'tacos',
+    'pizza']; 
+var wordSolution;
 var letterGuess;
 var btnRst;
 var btnGuess;
@@ -12,27 +23,19 @@ var wordArr = [];
 var wordDisp = [];
 var rnd;
 var maxErrors = 5;
-
-var wordList = [
-    'apple', 
-    'orange', 
-    'bananas', 
-    'apple', 
-    'orange', 
-    'bananas', 
-    'test',
-    'strawberries',
-    'tacos',
-    'pizza'];
+var guessCountInput;
+var btnShowSolution;
 
 // HTML Element References
 btnRst = document.getElementById("reset");
 btnGuess = document.getElementById("enter");
 letterGuess = document.querySelector('[name="input"]');
-dispSolution = document.getElementById('solution');
+solution = document.getElementById('solution');
 dispCorGuess = document.getElementById('correct');
 dispBadGuess = document.getElementById('wrong');
 dispRemaining = document.getElementById("error");
+guessCountInput = document.querySelector('[type="number"]');
+btnShowSolution = document.getElementById("showsolution");
 
 //Any additional functions
 
@@ -43,20 +46,36 @@ var reset = function(){
     letterGuess.value = '';
     dispCorGuess.textContent = "Correct: " + corArr.join(', ');
     dispBadGuess.textContent = "Wrong: " + wrongArr.join(', ');
-    dispSolution.textContent = "Game: " + wordDisp.join(' ');
-
+    dispRemaining.textContent = "Guesses Remaining: " + maxErrors;
     getWord();
-} 
+    solution.textContent = "Guess the word!      " + wordDisp.join(' ');
+    //letterDisp();
+};
+
+var fillBlanks = function(){
+    for (let i = 0; i < wordArr.length; i++){
+        wordDisp[i] = '*';
+    }
+};
+
+// var createBlocks = function(){
+    
+//     wordArr.forEach()
+//     for (var i = 0; i < wordArr.length; i++) {	
+// 		let letterElement = document.createElement('img');
+//         letterElement.setAttribute('data-id', i);
+//         //letterElement.setAttribute('class', 'letters');
+//         document.getElementsByClassName('letters').appendChild(letterElement);	
+//     }
+// };
 
 var getWord = function(){
     // create random value between 0 and 9 to select from wordList array.
     rnd = Math.floor(Math.random()*10);
     wordSolution = wordList[rnd].toUpperCase();
     wordArr = wordSolution.split(''); 
-    for (let i = 0; i < wordArr.length; i++){
-        wordDisp[i] = '*';
-    }
-}
+    fillBlanks();
+};
 
 var checkSingleLetter = function(length){
     if (length > 1) {
@@ -74,33 +93,28 @@ var displayLetters = function(letter){
             wordDisp[i] = letter;
         }
     }
-    dispSolution.textContent = "Game: " + wordDisp.join(' ');
-    //wordDisp.join(' ');
-}
+    solution.textContent = "Guess the word!  " + wordDisp.join(' ');
+};
 
 var guessCompare = function(letter){
-    //console.log("guessCompare.."); //DELETE
     if (wordSolution.includes(letter)){
-        //console.log("gsComp if..") //DELETE
         corArr.push(letter);
         dispCorGuess.textContent = "Correct: " + corArr.join(', ');
         displayLetters(letter);
         
     }
     else {
-       //console.log("gsComp else.."); //DELETE
         wrongArr.push(letter);
         dispBadGuess.textContent = "Wrong: " + wrongArr.join(', ');
         dispRemaining.textContent = "Guesses Remaining: " + (maxErrors - wrongArr.length);
     }
 };
 var newTextValue = function(){
-    //console.log("newTextValue .."); //DELETE
     if (checkSingleLetter(letterGuess.value.length)){
         guessCompare(letterGuess.value.toUpperCase());
     };
     letterGuess.value = '';
-    };
+};
 
 var gameStatus = function(){
     if (!(maxErrors - wrongArr.length)){
@@ -111,12 +125,7 @@ var gameStatus = function(){
     }
     else { 
         alert("You win!");
-        alert("Play again?");
     }
-};
-
-var init = function(){
-    reset();
 };
 
 var mainGame = function(){
@@ -124,8 +133,10 @@ var mainGame = function(){
     gameStatus();
 };
 
-init();
-// ********************************************
+var showSolution = function(){
+    solution.textContent = "Guess the word!      " + wordArr.join(' ');
+}
+reset();// ********************************************
 
 btnGuess.addEventListener("click", mainGame);
 
@@ -140,6 +151,4 @@ letterGuess.addEventListener('keypress', function(e){
 });
 
 btnRst.addEventListener("click", reset);
-
-
-
+btnShowSolution.addEventListener("click", showSolution);
