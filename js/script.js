@@ -5,12 +5,13 @@ var btnRst;
 var btnGuess;
 var dispCorGuess;
 var dispBadGuess;
+var dispRemaining;
 var wrongArr = [];
 var corArr = [];
 var wordArr = [];
 var wordDisp = [];
-//var errorCount;
 var rnd;
+var maxErrors = 5;
 
 var wordList = [
     'apple', 
@@ -31,6 +32,7 @@ letterGuess = document.querySelector('[name="input"]');
 dispSolution = document.getElementById('solution');
 dispCorGuess = document.getElementById('correct');
 dispBadGuess = document.getElementById('wrong');
+dispRemaining = document.getElementById("error");
 
 //Any additional functions
 
@@ -38,12 +40,10 @@ var reset = function(){
     corArr = [];
     wrongArr = [];
     wordDisp = [];
-    //errorCount = 0;
     letterGuess.value = '';
     dispCorGuess.textContent = "Correct: " + corArr.join(', ');
     dispBadGuess.textContent = "Wrong: " + wrongArr.join(', ');
     dispSolution.textContent = "Game: " + wordDisp.join(' ');
-
 
     getWord();
 } 
@@ -91,6 +91,7 @@ var guessCompare = function(letter){
        //console.log("gsComp else.."); //DELETE
         wrongArr.push(letter);
         dispBadGuess.textContent = "Wrong: " + wrongArr.join(', ');
+        dispRemaining.textContent = "Guesses Remaining: " + (maxErrors - wrongArr.length);
     }
 };
 var newTextValue = function(){
@@ -99,23 +100,42 @@ var newTextValue = function(){
         guessCompare(letterGuess.value.toUpperCase());
     };
     letterGuess.value = '';
+    };
+
+var gameStatus = function(){
+    if (!(maxErrors - wrongArr.length)){
+        dispRemaining.textContent = "Guesses Remaining: " + 0;
+        alert("Game Over! Try again!");
+    } else if (wordDisp.includes("*")) {
+            console.log("keep playing");
+    }
+    else { 
+        alert("You win!");
+        alert("Play again?");
+    }
 };
 
 var init = function(){
     reset();
 };
 
+var mainGame = function(){
+    newTextValue();
+    gameStatus();
+};
+
 init();
 // ********************************************
 
-btnGuess.addEventListener("click", newTextValue);
+btnGuess.addEventListener("click", mainGame);
 
 //https://stackoverflow.com/questions/14542062/eventlistener-enter-key
 // I found this solution for using carriage return to enter a value.
 letterGuess.addEventListener('keypress', function(e){
     let key = e.which || e.keyCode;
     if (key === 13) { 
-        newTextValue();
+        mainGame();
+
     }
 });
 
