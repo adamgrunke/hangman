@@ -2,12 +2,16 @@ body {
     background-color: #232323;
 }
 
-header, main, footer {
+header, main {
     background-color: pink;
     width: 70%;
     margin: auto;
 }
 
+footer {
+    width: 70%;
+    margin: auto;
+}
 h1 {
     color: black;
     font-family: 'Rye';
@@ -43,4 +47,10 @@ input {
 	clear: both;
 	height: 0;
 	font-size: 0;
+}
+
+.hangman {
+    font-size: 33px;
+    color: blue;
+    text-align: center;
 }

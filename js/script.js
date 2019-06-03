@@ -3,10 +3,10 @@ var wordList = [
     'apple', 
     'orange', 
     'bananas', 
-    'apple', 
-    'orange', 
-    'bananas', 
-    'test',
+    'pear', 
+    'grape', 
+    'papaya', 
+    'lemon',
     'strawberries',
     'tacos',
     'pizza']; 
@@ -52,6 +52,7 @@ var reset = function(){
     //solution.textContent = "Guess the word!      " + wordDisp.join(' ');
     deleteBlocks();
     createBlocks();
+    drawHangman();
     //fillLtrBlanks();
     //letterDisp();
 };
@@ -194,18 +195,53 @@ var gameStatus = function(){
         else {
             console.log("test01");
         }
-
-
-
-
-
-
-
 };
+
+var drawHangman = function(){
+    let drawCount = wrongArr.length; 
+    let hidden = '#232323';
+    let show = 'red';
+console.log(wrongArr.length);
+    switch (true) {
+        case (drawCount === 1): 
+            // Display head
+            document.getElementById('head').style.color = show;
+            break;
+        case (drawCount === 2): 
+            // Display body
+            
+            document.getElementById('arms').style.color = show;
+
+            break;
+        case (drawCount === 3):
+            // Display arms
+
+            document.getElementById('body').style.color = show;
+            break;
+        case (drawCount === 4):
+            // Display left leg
+
+            document.getElementById('leftleg').style.color = show;
+            break;
+        case (drawCount == 5): 
+            // Display right leg
+
+            document.getElementById('rightleg').style.color = show;
+            break;
+        default:
+                        // No image displayed
+            document.getElementById('head').style.color = hidden;
+            document.getElementById('body').style.color = hidden;
+            document.getElementById('arms').style.color = hidden;
+            document.getElementById('leftleg').style.color = hidden;
+            document.getElementById('rightleg').style.color = hidden;
+}
+}
 
 var mainGame = function(){
     newTextValue();
     gameStatus();
+    drawHangman();
 };
 
 var showSolution = function(){
