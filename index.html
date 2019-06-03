@@ -7,30 +7,33 @@
     <title>Hangman</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rye&display=swap" rel="stylesheet">
+
+    
 </head>
 <body>
     
     <header>
         <h1>Hangman Game!</h1>
-    </header>
-    <main>
         <div>
-            <input type='text'name="input" placeholder="Guess your first letter"> 
+            <input type='text'name="input" placeholder="Guess your letter here"> 
             <button id="enter">Check for guess!</button>
             <button id="showsolution">Show Solution</button>
-            <p id="solution" >Game _ _ _ _</p>
-            <p id="correct" class="guesses">Correct:</p>
-            <p id="wrong" class="guesses">Wrong:</p>
-            <p id="error" >Guesses Remaining: </p>  
+            <button id="reset" class="reset">Reset</button>
             <!-- <input type='number'> -->
             
         </div>
-<!-- 
-        <div class="letters">
-
-        </div> -->
-
-        <button id="reset" class="reset">Reset</button>
+    </header>
+    <main>
+        
+        <div id="ltrs">
+            
+        </div>
+        <!-- <p id="solution" >Game _ _ _ _</p> -->
+        <p id="correct" class="guesses">Correct:</p>
+        <p id="wrong" class="guesses">Wrong:</p>
+        <p id="error" >Guesses Remaining: </p>  
+        
     </main>
     <footer>
 
